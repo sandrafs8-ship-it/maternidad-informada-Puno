@@ -1,0 +1,30 @@
+# ==========================================
+# Dependencias para Maternidad Informada Puno
+# Desafío de Datos para la Democracia - OEA 2026
+# ==========================================
+
+# 1. Para el Dashboard Interactivo (La interfaz web)
+streamlit==1.35.0
+
+# 2. Para el Procesamiento y Análisis de Datos (Su modelo IVI)
+pandas==2.2.2
+numpy==1.26.4
+
+# 3. Para Mapas y Datos Geoespaciales (El mapa de Puno)
+geopandas==0.14.4
+folium==0.17.0
+shapely==2.0.4
+
+# 4. Para Gráficos y Visualizaciones (Barras, semáforos)
+plotly==5.22.0
+matplotlib==3.9.0
+seaborn==0.13.2
+
+# 5. Para generar el "Kit de Verificación" (PDF para WhatsApp)
+fpdf2==2.7.9
+
+# 6. Para descargar datos de la web (APIs de INEI/MINSA)
+requests==2.32.3
+
+# 7. Utilidades generales
+python-dotenv==1.0.1
