@@ -16,15 +16,18 @@ El IVI se calcula ponderando cuatro variables clave de datos abiertos:
 *   **Vulnerabilidad en Salud Materna (40%)**: Partos sin asistencia calificada y <4 controles prenatales (ENDES/MINSA).
 *   **Nivel Educativo (20%)**: Población femenina >15 años sin secundaria completa (INEI).
 *   **Exposición a Desinformación (10%)**: Frecuencia de bulos de salud desmentidos (Ojo Público, Convoca).
+## 👥 Equipo: Resiliencia Informativa Andina (5 integrantes)
 
-## 👥 Nuestro Equipo
-| Nombre | Rol | Institución |
-|---|---|---|
-| Sandra Alejandra Fernández Macedo | Líder de Proyecto / Investigadora Principal | Universidad Andina Néstor Cáceres Velásquez |
-| Esperanza Cueva Rossel | Especialista en Salud Materno-Infantil | Hospital Manuel Núñez Butrón |
-| Sonia Benita Fernández Tapia | Especialista en Comunicación de Riesgos | Universidad Andina Néstor Cáceres Velásquez |
-| Julio Jimenez Agüero | Validador Clínico / Analista de Datos | Consulta privada / Univ. Andina |
-|  |
+Nuestro equipo multidisciplinario combina rigor científico, conocimiento territorial y capacidad técnica en datos y análisis geoespacial:
+
+| Rol | Nombre | Institución |
+|-----|--------|-------------|
+| **Líder de Proyecto / Experta Metodológica y Estadística** | Dra. Sandra Alejandra Fernández Macedo | Universidad Andina Néstor Cáceres Velásquez (UANCV) |
+| **Especialista en Alto Riesgo y Emergencias Obstétricas** | Esperanza Cueva Rossel | Hospital Manuel Núñez Butrón - UANCV |
+| **Especialista en Planificación de Servicios de Salud** | Sonia Benita Fernández Tapia | Universidad Andina Néstor Cáceres Velásquez (UANCV) |
+| **Validador Clínico / Analista de Datos en Salud** | Dr. Julio Jimenez Agüero | Consulta Privada / UANCV |
+| **Ingeniero Civil / Especialista en Análisis Geoespacial (SIG) y Desarrollo** | Wilfredo David Supo Pacori | Universidad Andina Néstor Cáceres Velásquez (UANCV) |
+
 
 ## 📂 Estructura del Repositorio
 *   `/data`: Datasets procesados y limpios (CSV).
