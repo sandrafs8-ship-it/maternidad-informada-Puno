@@ -2,7 +2,8 @@
 ### Modelo Analítico y Geoespacial para el Combate a la Desinformación en Salud Materno-Infantil
 
 > **Desafío de Datos para la Democracia - OEA 2026**  
-> 🌐 **Aplicación en Vivo:** [https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/](https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/)
+> 🌐 **Aplicación en Vivo:** [https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/](https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/)<img width="981" height="587" alt="dashboard png" src="https://github.com/user-attachments/assets/8b38b138-4386-4481-b2e7-b6b06857afd8" />
+
 
 ---
 
