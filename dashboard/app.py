@@ -16,7 +16,7 @@ st.markdown("---")
 st.sidebar.header("Filtros")
 provincia_seleccionada = st.sidebar.selectbox(
     "Seleccione una provincia de Puno:",
-    ["Todas", "Puno", "San Román", "Huanc
+       ["Todas"] + list(provincias_data.keys())
      )
 
 # Sección principal: Mapa y Datos
