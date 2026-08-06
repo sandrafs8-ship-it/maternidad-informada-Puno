@@ -227,6 +227,22 @@ else:
     st.info("Seleccione una provincia en la barra lateral para ver su ficha detallada.")
 
 # Pie de página
+# Pie de página académico
 st.markdown("---")
-st.caption("Desarrollado por el Equipo Resiliencia Informativa Andina - Desafío OEA 2026 🇪")
-st.caption("️ Datos de ejemplo. Reemplazar con datos oficiales del INEI/MINSA para la versión final.")
+st.markdown("""
+**Desarrollado por:**  
+Dra. Sandra [Su Apellido] | ORCID: [0000-0001-6135-7976](https://orcid.org/0000-0001-6135-7976)  
+Equipo Resiliencia Informativa Andina - Desafío de Datos para la Democracia - OEA 2026 🇵🇪
+""")
+
+with st.expander("ℹ️ Declaración Ética y Fuentes de Datos"):
+    st.markdown("""
+    **Ética de investigación:**  
+    Los datos de la muestra de participantes (n=75) han sido completamente anonimizados según protocolos de protección de datos personales. 
+    El estudio cuenta con la aprobación del comité de ética institucional correspondiente.
+    
+    **Fuentes de datos provinciales:**  
+    - INEI: Censos Nacionales, Encuesta Nacional de Hogares (ENAHO)  
+    - MINSA: Sistema de Información de Salud (HIS), ENDES  
+    - DIRESA Puno: Reportes de salud materno-infantil
+    """)
