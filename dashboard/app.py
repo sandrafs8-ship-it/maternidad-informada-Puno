@@ -118,7 +118,61 @@ with tab3:
                   x="Desnutrición infantil (%)", y="Provincia", orientation="h", color="Nivel de Vulnerabilidad",
                   color_discrete_map={"Alto": "red", "Medio": "orange", "Bajo": "green"}, title="% Desnutrición Infantil")
     st.plotly_chart(fig3, use_container_width=True)
-
+with tab4:
+    st.markdown("### 🔬 Resultados de la Cohorte de Gestantes (n=75)")
+    
+    # Cargar la cohorte real
+    ruta_cohorte = os.path.join("data", "cohorte_gestantes.csv")
+    if os.path.exists(ruta_cohorte):
+        df_cohorte = pd.read_csv(ruta_cohorte)
+        
+        # Filtrar cohorte por provincia seleccionada
+        if provincia_seleccionada != "Todas":
+            df_cohorte_filt = df_cohorte[df_cohorte['Provincia'] == provincia_seleccionada]
+            st.info(f"📍 Mostrando {len(df_cohorte_filt)} gestantes de **{provincia_seleccionada}**")
+        else:
+            df_cohorte_filt = df_cohorte
+            st.info(f"📍 Mostrando las {len(df_cohorte_filt)} gestantes de toda la región")
+        
+        if len(df_cohorte_filt) > 0:
+            # Métricas clave
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Edad promedio", f"{df_cohorte_filt['Edad'].mean():.1f} años")
+            c2.metric("Exposición a desinformación", f"{df_cohorte_filt['Exposicion_Desinformacion'].mean():.1f}%")
+            c3.metric("Controles prenatales promedio", f"{df_cohorte_filt['Controles_Prenatales'].mean():.1f}")
+            
+            # Gráficos reales
+            c4, c5 = st.columns(2)
+            with c4:
+                st.plotly_chart(
+                    px.scatter(df_cohorte_filt, 
+                              x="Edad", 
+                              y="Exposicion_Desinformacion",
+                              color="Nivel_Educativo",
+                              hover_name="Provincia",
+                              trendline="ols",
+                              title="Edad vs Exposición a Desinformación"),
+                    use_container_width=True
+                )
+            with c5:
+                st.plotly_chart(
+                    px.scatter(df_cohorte_filt,
+                              x="Controles_Prenatales",
+                              y="Exposicion_Desinformacion",
+                              color="Nivel_Educativo",
+                              hover_name="Provincia",
+                              trendline="ols",
+                              title="Controles Prenatales vs Exposición"),
+                    use_container_width=True
+                )
+            
+            # Tabla de datos anonimizados
+            with st.expander("📋 Ver datos anonimizados de la cohorte"):
+                st.dataframe(df_cohorte_filt[['ID', 'Provincia', 'Edad', 'Nivel_Educativo', 'Exposicion_Desinformacion', 'Controles_Prenatales']])
+        else:
+            st.warning("No hay gestantes registradas en esta provincia en la cohorte.")
+    else:
+        st.error("⚠️ No se encontró `data/cohorte_gestantes.csv`")
 st.markdown("---")
 st.subheader("🧮 Análisis Estadístico: Correlación de Pearson")
 col1, col2 = st.columns(2)
