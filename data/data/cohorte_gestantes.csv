@@ -1,0 +1,7 @@
+ID,Provincia,Edad_Gestacional,Exposicion_Desinformacion,Controles_Prenatales,Edad,Nivel_Educativo
+P001,Sandia,28,75,4,22,Secundaria
+P002,Sandia,32,68,6,25,Primaria
+P003,Huancané,35,82,3,19,Secundaria
+P004,Azángaro,29,71,5,28,Superior
+P005,Moho,31,88,2,21,Primaria
+... (continúa hasta P075)
