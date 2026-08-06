@@ -5,15 +5,17 @@
 
 # 1. Para el Dashboard Interactivo (La interfaz web)
 streamlit==1.35.0
+streamlit-folium==0.22.0      # [NUEVO] Renderiza los mapas de Folium dentro de Streamlit
 
 # 2. Para el Procesamiento y Análisis de Datos (Su modelo IVI)
 pandas==2.2.2
 numpy==1.26.4
+openpyxl==3.1.5               # [NUEVO] Motor para que Pandas lea archivos Excel del INEI/MINSA
 
 # 3. Para Mapas y Datos Geoespaciales (El mapa de Puno)
-
 folium==0.17.0
 shapely==2.0.4
+geopandas==1.0.1              # [NUEVO] Manejo avanzado de shapefiles/GeoJSON de provincias
 
 # 4. Para Gráficos y Visualizaciones (Barras, semáforos)
 plotly==5.22.0
@@ -26,5 +28,9 @@ fpdf2==2.7.9
 # 6. Para descargar datos de la web (APIs de INEI/MINSA)
 requests==2.32.3
 
-# 7. Utilidades generales
+# 7. Análisis Estadístico (Validación del modelo IVI)
+scipy==1.13.1                 # [NUEVO] Pruebas estadísticas y matemáticas avanzadas
+statsmodels==0.14.2           # [NUEVO] Para la Correlación de Pearson mencionada en su README
+
+# 8. Utilidades generales
 python-dotenv==1.0.1
