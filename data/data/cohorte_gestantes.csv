@@ -1,7 +1,16 @@
 ID,Provincia,Edad_Gestacional,Exposicion_Desinformacion,Controles_Prenatales,Edad,Nivel_Educativo
-P001,Sandia,28,75,4,22,Secundaria
-P002,Sandia,32,68,6,25,Primaria
-P003,Huancané,35,82,3,19,Secundaria
-P004,Azángaro,29,71,5,28,Superior
-P005,Moho,31,88,2,21,Primaria
-... (continúa hasta P075)
+P001,Melgar,30,59,3,30,Secundaria
+P002,San Román,27,38,7,32,Secundaria
+P003,El Collao,35,63,5,25,Primaria
+P004,Lampa,35,41,6,31,Primaria
+P005,San Román,33,41,5,33,Secundaria
+P006,Yunguyo,26,47,8,24,Secundaria
+P007,Azángaro,41,58,5,24,Secundaria
+P008,Moho,25,89,4,17,Primaria
+P009,Moho,31,92,3,27,Primaria
+P010,Carabaya,27,78,1,19,Primaria
+P011,Sandia,29,82,2,22,Primaria
+P012,Puno,38,32,8,31,Superior
+P013,Huancané,24,76,3,18,Primaria
+P014,Chucuito,34,35,7,30,Secundaria
+P015,San Antonio de Putina,32,44,6,28,Secundaria
