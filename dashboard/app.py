@@ -343,3 +343,4 @@ else:
 
 st.markdown("---")
 st.caption("Desarrollado por el Equipo Resiliencia Informativa Andina - Desafío OEA 2026 🇵🇪")
+# Forzar actualización 2026
