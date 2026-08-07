@@ -99,7 +99,7 @@ with col4: st.metric("Prom. Mortalidad Materna", f"{df_filtrado['Mortalidad mate
 st.markdown("---")
 
 st.subheader("📈 Análisis Comparativo por Provincia")
-tab1, tab2, tab3 = st.tabs(["🌐 Conectividad", "🤰 Partos", "👶 Desnutrición"])
+tab1, tab2, tab3, tab4 = st.tabs(["🌐 Conectividad", "🤰 Partos", "👶 Desnutrición", "🔬 Cohorte Gestantes"])
 
 with tab1:
     fig1 = px.bar(df_filtrado, x="Provincia", y="Hogares sin internet (%)", color="Nivel de Vulnerabilidad",
