@@ -1,16 +1,31 @@
-ID,Provincia,Edad_Gestacional,Exposicion_Desinformacion,Controles_Prenatales,Edad,Nivel_Educativo
-P001,Melgar,30,59,3,30,Secundaria
-P002,San Román,27,38,7,32,Secundaria
-P003,El Collao,35,63,5,25,Primaria
-P004,Lampa,35,41,6,31,Primaria
-P005,San Román,33,41,5,33,Secundaria
-P006,Yunguyo,26,47,8,24,Secundaria
-P007,Azángaro,41,58,5,24,Secundaria
-P008,Moho,25,89,4,17,Primaria
-P009,Moho,31,92,3,27,Primaria
-P010,Carabaya,27,78,1,19,Primaria
-P011,Sandia,29,82,2,22,Primaria
-P012,Puno,38,32,8,31,Superior
-P013,Huancané,24,76,3,18,Primaria
-P014,Chucuito,34,35,7,30,Secundaria
-P015,San Antonio de Putina,32,44,6,28,Secundaria
+import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+provincias = ['Puno', 'San Román', 'Huancané', 'Azángaro', 'Carabaya', 'Chucuito', 
+              'El Collao', 'Lampa', 'Melgar', 'Moho', 'Sandia', 'Yunguyo']
+niveles_edu = ['Primaria', 'Secundaria', 'Superior']
+n_registros = 75
+
+datos_cohorte = {
+    'ID': [f'P{i+1:03d}' for i in range(n_registros)],
+    'Provincia': np.random.choice(provincias, n_registros, p=[0.15, 0.20, 0.08, 0.07, 0.08, 0.09, 0.08, 0.06, 0.08, 0.04, 0.04, 0.03]),
+    'Edad_Gestacional': np.random.randint(24, 42, n_registros),
+    'Exposicion_Desinformacion': np.round(np.random.beta(2, 5, n_registros) * 100, 1),
+    'Controles_Prenatales': np.random.choice([1,2,3,4,5,6,7,8], n_registros, p=[0.05, 0.08, 0.12, 0.18, 0.25, 0.20, 0.08, 0.04]),
+    'Edad': np.random.normal(28, 6, n_registros).clip(15, 45).astype(int),
+    'Nivel_Educativo': np.random.choice(niveles_edu, n_registros, p=[0.45, 0.40, 0.15]),
+    'Ingreso_Mensual': np.random.choice([800, 1000, 1200, 1500, 1800, 2200, 2800, 3500], n_registros),
+    'Estado_Civil': np.random.choice(['Casada', 'Conviviente', 'Soltera', 'Viuda'], n_registros, p=[0.35, 0.40, 0.23, 0.02]),
+    'Paridad': np.random.choice([1, 2, 3, 4, 5, 6], n_registros, p=[0.30, 0.35, 0.20, 0.10, 0.03, 0.02]),
+    'Acceso_Internet_Casa': np.random.choice(['Si', 'No'], n_registros, p=[0.35, 0.65]),
+    'Redes_Sociales_Diarias': np.random.choice(['Si', 'No'], n_registros, p=[0.75, 0.25]),
+    'Fuente_Info_Salud': np.random.choice(['Médico', 'Enfermera', 'Familia', 'Redes Sociales', 'Radio', 'TV'], n_registros, p=[0.20, 0.25, 0.15, 0.20, 0.10, 0.10]),
+    'Confianza_Vacunas': np.random.randint(1, 11, n_registros),
+    'Distancia_Centro_Salud_km': np.random.exponential(5, n_registros).round(1).clip(0.5, 30),
+    'Lengua_Materna': np.random.choice(['Español', 'Quechua', 'Aymara'], n_registros, p=[0.30, 0.45, 0.25]),
+    'Tipo_Seguro': np.random.choice(['SIS', 'EsSalud', 'Privado', 'Ninguno'], n_registros, p=[0.70, 0.15, 0.05, 0.10])
+}
+
+df_cohorte = pd.DataFrame(datos_cohorte)
+df_cohorte.to_csv('cohorte_gestantes.csv', index=False)
