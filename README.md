@@ -1,59 +1,76 @@
-# 🤰 Maternidad Informada Puno
+<div align="center">
 
+# 🤰 Maternidad Informada Puno
 ### Modelo Analítico y Geoespacial para el Combate a la Desinformación en Salud Materno-Infantil
 
-> **Desafío de Datos para la Democracia - OEA 2026**  
-> 🌐 **Aplicación en Vivo:** https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/
+**Desafío Datos para la Democracia — OEA 2026**
+
+[🌐 **Ver Dashboard en Vivo**](https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/)
+
+</div>
 
 ---
 
-## 📌 Descripción del Proyecto
+## 🎯 Problema
 
-Desarrollo de un tablero de control (dashboard) geoespacial interactivo que identifica las provincias de la región Puno con mayor vulnerabilidad a la desinformación en salud materno-infantil. La herramienta utiliza el **Índice de Vulnerabilidad Informativa (IVI)** para priorizar intervenciones y facilitar la toma de decisiones basada en datos abiertos.
+En la región Puno, Perú:
 
-## 🧮 Metodología: Índice de Vulnerabilidad Informativa (IVI)
+- **80% de hogares rurales** no tiene acceso a internet
+- **37.4% de partos** ocurren sin asistencia médica calificada
+- **Mortalidad materna** alcanza 125 por 100,000 en provincias como Sandia
+- La **desinformación en salud** circula sin contrapeso en zonas sin conectividad
 
-El IVI es un índice compuesto (0-100) calculado mediante la ponderación de cuatro variables clave. Los pesos fueron definidos en base a la evidencia de impacto directo en la salud materna:
+Esta combinación crea un círculo vicioso: **sin acceso a información verificada, las gestantes toman decisiones basadas en mitos y desinformación**, aumentando los riesgos durante el embarazo y parto.
 
-| Indicador | Peso | Justificación | Fuente de Datos (Objetivo) |
-| :--- | :---: | :--- | :--- |
-| **Hogares sin internet** | 40% | Acceso a información digital y telemedicina | INEI (Censos / ENAHO) |
-| **Partos sin asistencia calificada** | 30% | Resultado directo de desinformación en salud | MINSA (HIS / ENDES) |
-| **Desnutrición infantil** | 20% | Indicador de salud preventiva fallida | MINSA / INEI |
-| **Mortalidad materna** | 10% | Consecuencia extrema (evento centinela) | MINSA (Sala Situacional) |
+---
 
-*Fórmula:* $IVI = \sum_{i=1}^{n} (w_i \times x_i)$, donde $x_i$ es el valor normalizado del indicador.
+## 💡 Solución
 
-## 💻 Stack Tecnológico
+**Maternidad Informada Puno** es un dashboard interactivo que:
 
-- **Lenguaje:** Python 3.14
-- **Framework Web:** Streamlit
-- **Visualización Geoespacial:** Folium, Streamlit-Folium
-- **Análisis de Datos:** Pandas, NumPy
-- **Estadística:** SciPy, Statsmodels (Correlación de Pearson)
-- **Reportes:** FPDF2 (Generación de kits en PDF)
+1. **Calcula el Índice de Vulnerabilidad Informativa (IVI)** para las 12 provincias de Puno
+2. **Identifica zonas prioritarias** para intervenciones de alfabetización digital en salud
+3. **Analiza una cohorte real de 75 gestantes** con 17 variables demográficas y de salud
+4. **Correlaciona conectividad con indicadores de salud materna** para orientar políticas públicas
 
-## 🚀 Cómo Ejecutar el Proyecto Localmente
+---
 
-1. Clonar el repositorio:  
-   `git clone https://github.com/sandrafs8-ship-it/maternidad-informada-Puno.git`
-2. Entrar a la carpeta del proyecto:  
-   `cd maternidad-informada-Puno`
-3. Instalar dependencias:  
-   `pip install -r requirements.txt`
-4. Ejecutar la aplicación:  
-   `streamlit run app.py`
+## 🔗 Enlace al Dashboard
 
-## 📂 Estructura del Repositorio
+**👉 [https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/](https://maternidad-informada-puno-sor4mo8eyt8n39ngzpmzpk.streamlit.app/)**
 
-```text
-maternidad-informada-Puno/
-├── app.py                      # Código principal del dashboard Streamlit
-├── requirements.txt            # Dependencias del proyecto
-├── data/
-│   ├── datos_puno.csv          # Datos procesados de las provincias de Puno
-│   └── fuentes_de_datos.md     # Documentación de las fuentes (INEI/MINSA)
-├── docs/
-│   └── nota_metodologica.md    # Detalles del cálculo del IVI
-├── README.md                   # Este archivo
-└── LICENSE                     # Licencia de código abierto (MIT)
+---
+
+## ✨ Características del Dashboard
+
+### 🗺️ Mapa Geoespacial Interactivo
+- Visualización de las 12 provincias de Puno con niveles de vulnerabilidad
+- Filtros dinámicos por nivel de riesgo (Alto, Medio, Bajo)
+- Marcadores con información detallada de cada provincia
+
+### 📊 5 Indicadores Clave
+- Hogares sin Internet
+- Partos sin Asistencia Médica
+- Desnutrición Infantil
+- Mortalidad Materna
+- Pobreza
+
+### 📈 5 Pestañas de Análisis
+| Pestaña | Contenido |
+|---------|-----------|
+| 🌐 Conectividad | Barras de % de hogares sin internet por provincia |
+| 🤰 Partos | Distribución de partos con/sin asistencia |
+| 👶 Desnutrición | Ranking de desnutrición infantil |
+| 🏥 Infraestructura | Hospitales, médicos y servicios básicos |
+| 🔬 Cohorte | Análisis de 75 gestantes con gráficos de dispersión |
+
+### 🧮 Análisis Estadístico
+- **Correlación de Pearson** entre conectividad y salud materna
+- **r = 0.957** entre falta de internet y partos sin asistencia
+- **r = 0.932** entre falta de internet y mortalidad materna
+
+---
+
+## 📐 Metodología: Índice de Vulnerabilidad Informativa (IVI)
+
+### Fórmula
