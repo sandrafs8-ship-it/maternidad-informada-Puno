@@ -13,6 +13,9 @@ st.title("🤰 Maternidad Informada Puno")
 st.markdown("### Modelo Analítico y Geoespacial para el Combate a la Desinformación en Salud Materno-Infantil")
 st.markdown("---")
 
+# ============================================================
+# FUNCIONES
+# ============================================================
 def calcular_IVI(provincia_data):
     pesos = {'internet': 0.40, 'partos_sin': 0.30, 'desnutricion': 0.20, 'mortalidad': 0.10}
     x_internet = provincia_data['internet']
@@ -29,34 +32,56 @@ def calcular_IVI(provincia_data):
     
     return {'IVI': round(IVI, 2), 'nivel': nivel, 'color': color, 'emoji': emoji}
 
-provincias_data = {
-    "Puno": {"lat": -15.8402, "lon": -70.0219, "internet": 15, "partos_sin": 20, "desnutricion": 12, "mortalidad": 45},
-    "San Román": {"lat": -15.5000, "lon": -70.1333, "internet": 45, "partos_sin": 25, "desnutricion": 18, "mortalidad": 68},
-    "Huancané": {"lat": -15.5833, "lon": -69.9333, "internet": 70, "partos_sin": 40, "desnutricion": 28, "mortalidad": 95},
-    "Azángaro": {"lat": -14.9667, "lon": -70.0333, "internet": 55, "partos_sin": 35, "desnutricion": 24, "mortalidad": 82},
-    "Carabaya": {"lat": -14.5167, "lon": -69.7500, "internet": 75, "partos_sin": 45, "desnutricion": 32, "mortalidad": 110},
-    "Chucuito": {"lat": -16.2833, "lon": -69.4167, "internet": 30, "partos_sin": 20, "desnutricion": 15, "mortalidad": 55},
-    "El Collao": {"lat": -16.0833, "lon": -69.5833, "internet": 50, "partos_sin": 30, "desnutricion": 22, "mortalidad": 78},
-    "Lampa": {"lat": -15.8333, "lon": -70.4167, "internet": 60, "partos_sin": 35, "desnutricion": 26, "mortalidad": 88},
-    "Melgar": {"lat": -15.3833, "lon": -70.1833, "internet": 55, "partos_sin": 40, "desnutricion": 27, "mortalidad": 92},
-    "Moho": {"lat": -15.6167, "lon": -69.6833, "internet": 65, "partos_sin": 42, "desnutricion": 30, "mortalidad": 100},
-    "Sandia": {"lat": -14.7667, "lon": -69.4833, "internet": 80, "partos_sin": 50, "desnutricion": 38, "mortalidad": 125},
-    "Yunguyo": {"lat": -16.2333, "lon": -69.0833, "internet": 35, "partos_sin": 22, "desnutricion": 16, "mortalidad": 60},
-}
+# ============================================================
+# CARGAR DATOS REALES DESDE CSV
+# ============================================================
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-for nombre, data in provincias_data.items():
-    provincias_data[nombre].update(calcular_IVI(data))
+# Intentar cargar datos_puno.csv desde varias rutas posibles
+ruta_datos = os.path.join(BASE_DIR, "data", "datos_puno.csv")
+if not os.path.exists(ruta_datos):
+    ruta_datos = os.path.join(BASE_DIR, "datos_puno.csv")
 
-df = pd.DataFrame([
-    {"Provincia": nombre, "Hogares sin internet (%)": data["internet"], "Partos sin asistencia (%)": data["partos_sin"],
-     "Desnutrición infantil (%)": data["desnutricion"], "Mortalidad materna (por 100mil)": data["mortalidad"],
-     "IVI": data["IVI"], "Nivel de Vulnerabilidad": data["nivel"]}
-    for nombre, data in provincias_data.items()
-])
+if os.path.exists(ruta_datos):
+    df_datos = pd.read_csv(ruta_datos)
+    st.success(f"✅ Datos cargados desde: {ruta_datos}")
+    
+    # Convertir CSV a diccionario de provincias
+    provincias_data = {}
+    for _, row in df_datos.iterrows():
+        provincias_data[row['Provincia']] = {
+            "lat": float(row['Lat']),
+            "lon": float(row['Lon']),
+            "internet": float(row['Internet']),
+            "partos_sin": float(row['Partos_Sin']),
+            "desnutricion": float(row['Desnutricion']),
+            "mortalidad": float(row['Mortalidad'])
+        }
+    
+    # Calcular IVI para cada provincia
+    for nombre, data in provincias_data.items():
+        provincias_data[nombre].update(calcular_IVI(data))
+    
+    # Crear DataFrame para visualizaciones
+    df = pd.DataFrame([
+        {"Provincia": nombre, "Hogares sin internet (%)": data["internet"], "Partos sin asistencia (%)": data["partos_sin"],
+         "Desnutrición infantil (%)": data["desnutricion"], "Mortalidad materna (por 100mil)": data["mortalidad"],
+         "IVI": data["IVI"], "Nivel de Vulnerabilidad": data["nivel"]}
+        for nombre, data in provincias_data.items()
+    ])
+else:
+    st.error(f"⚠️ No se encontró datos_puno.csv en {ruta_datos}")
+    st.stop()
 
+# ============================================================
+# CORRELACIONES
+# ============================================================
 corr_internet_partos = round(np.corrcoef(df['Hogares sin internet (%)'], df['Partos sin asistencia (%)'])[0,1], 3)
 corr_internet_mortalidad = round(np.corrcoef(df['Hogares sin internet (%)'], df['Mortalidad materna (por 100mil)'])[0,1], 3)
 
+# ============================================================
+# FILTROS
+# ============================================================
 st.sidebar.header("🔍 Filtros")
 provincia_seleccionada = st.sidebar.selectbox("Seleccione una provincia:", ["Todas"] + list(provincias_data.keys()))
 filtro_nivel = st.sidebar.multiselect("Filtrar por nivel:", ["Alto", "Medio", "Bajo"], default=["Alto", "Medio", "Bajo"])
@@ -66,6 +91,9 @@ if provincia_seleccionada != "Todas":
 else:
     df_filtrado = df[df["Nivel de Vulnerabilidad"].isin(filtro_nivel)]
 
+# ============================================================
+# MAPA
+# ============================================================
 st.subheader("🗺️ Mapa de Vulnerabilidad Informativa (IVI)")
 col_peru, col_puno = st.columns([1, 3])
 
@@ -90,6 +118,9 @@ with col_puno:
 st.markdown("**Leyenda:** 🔴 Alto (IVI > 66) | 🟠 Medio (34-66) | 🟢 Bajo (IVI < 33)")
 st.markdown("---")
 
+# ============================================================
+# INDICADORES CLAVE
+# ============================================================
 st.subheader("📊 Indicadores Clave (Promedio Filtrado)")
 col1, col2, col3, col4 = st.columns(4)
 with col1: st.metric("Prom. Hogares sin Internet", f"{df_filtrado['Hogares sin internet (%)'].mean():.1f}%")
@@ -98,6 +129,9 @@ with col3: st.metric("Prom. Desnutrición Infantil", f"{df_filtrado['Desnutrici�
 with col4: st.metric("Prom. Mortalidad Materna", f"{df_filtrado['Mortalidad materna (por 100mil)'].mean():.0f}")
 st.markdown("---")
 
+# ============================================================
+# PESTAÑAS (AHORA CON 4 CORRECTAMENTE)
+# ============================================================
 st.subheader("📈 Análisis Comparativo por Provincia")
 tab1, tab2, tab3, tab4 = st.tabs(["🌐 Conectividad", "🤰 Partos", "👶 Desnutrición", "🔬 Cohorte Gestantes"])
 
@@ -119,17 +153,21 @@ with tab3:
                   x="Desnutrición infantil (%)", y="Provincia", orientation="h", color="Nivel de Vulnerabilidad",
                   color_discrete_map={"Alto": "red", "Medio": "orange", "Bajo": "green"}, title="% Desnutrición Infantil")
     st.plotly_chart(fig3, use_container_width=True)
+
+# ============================================================
+# COHORTE DE GESTANTES (RUTA CORREGIDA)
+# ============================================================
 with tab4:
     st.markdown("### 🔬 Resultados de la Cohorte de Gestantes (n=75)")
     
-    # Cargar la cohorte real
-    ruta_cohorte = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "data", "cohorte_gestantes.csv")
-if not os.path.exists(ruta_cohorte):
-    ruta_cohorte = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "cohorte_gestantes.csv")
+    # Buscar cohorte_gestantes.csv en varias rutas posibles
+    ruta_cohorte = os.path.join(BASE_DIR, "data", "data", "cohorte_gestantes.csv")
+    if not os.path.exists(ruta_cohorte):
+        ruta_cohorte = os.path.join(BASE_DIR, "data", "cohorte_gestantes.csv")
+    
     if os.path.exists(ruta_cohorte):
         df_cohorte = pd.read_csv(ruta_cohorte)
         
-        # Filtrar cohorte por provincia seleccionada
         if provincia_seleccionada != "Todas":
             df_cohorte_filt = df_cohorte[df_cohorte['Provincia'] == provincia_seleccionada]
             st.info(f"📍 Mostrando {len(df_cohorte_filt)} gestantes de **{provincia_seleccionada}**")
@@ -138,13 +176,11 @@ if not os.path.exists(ruta_cohorte):
             st.info(f"📍 Mostrando las {len(df_cohorte_filt)} gestantes de toda la región")
         
         if len(df_cohorte_filt) > 0:
-            # Métricas clave
             c1, c2, c3 = st.columns(3)
             c1.metric("Edad promedio", f"{df_cohorte_filt['Edad'].mean():.1f} años")
             c2.metric("Exposición a desinformación", f"{df_cohorte_filt['Exposicion_Desinformacion'].mean():.1f}%")
             c3.metric("Controles prenatales promedio", f"{df_cohorte_filt['Controles_Prenatales'].mean():.1f}")
             
-            # Gráficos reales
             c4, c5 = st.columns(2)
             with c4:
                 st.plotly_chart(
@@ -169,14 +205,18 @@ if not os.path.exists(ruta_cohorte):
                     use_container_width=True
                 )
             
-            # Tabla de datos anonimizados
             with st.expander("📋 Ver datos anonimizados de la cohorte"):
                 st.dataframe(df_cohorte_filt[['ID', 'Provincia', 'Edad', 'Nivel_Educativo', 'Exposicion_Desinformacion', 'Controles_Prenatales']])
         else:
             st.warning("No hay gestantes registradas en esta provincia en la cohorte.")
     else:
-        st.error("⚠️ No se encontró `data/cohorte_gestantes.csv`")
+        st.error("⚠️ No se encontró `cohorte_gestantes.csv`")
+
 st.markdown("---")
+
+# ============================================================
+# ANÁLISIS ESTADÍSTICO
+# ============================================================
 st.subheader("🧮 Análisis Estadístico: Correlación de Pearson")
 col1, col2 = st.columns(2)
 with col1:
@@ -190,6 +230,10 @@ fig_scatter = px.scatter(df, x="Hogares sin internet (%)", y="Partos sin asisten
 st.plotly_chart(fig_scatter, use_container_width=True)
 
 st.markdown("---")
+
+# ============================================================
+# FICHA DETALLADA
+# ============================================================
 st.subheader("📋 Ficha Detallada de la Provincia")
 if provincia_seleccionada != "Todas":
     data = provincias_data[provincia_seleccionada]
