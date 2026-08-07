@@ -123,7 +123,9 @@ with tab4:
     st.markdown("### 🔬 Resultados de la Cohorte de Gestantes (n=75)")
     
     # Cargar la cohorte real
-    ruta_cohorte = os.path.join("data", "cohorte_gestantes.csv")
+    ruta_cohorte = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "data", "cohorte_gestantes.csv")
+if not os.path.exists(ruta_cohorte):
+    ruta_cohorte = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "cohorte_gestantes.csv")
     if os.path.exists(ruta_cohorte):
         df_cohorte = pd.read_csv(ruta_cohorte)
         
