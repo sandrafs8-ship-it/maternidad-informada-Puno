@@ -28,7 +28,7 @@ Esta combinación crea un círculo vicioso: **sin acceso a información verifica
 
 **Maternidad Informada Puno** es un dashboard interactivo que:
 
-1. **Calcula el Índice de Vulnerabilidad Informativa (IVI)** para las 12 provincias de Puno
+1. **Calcula el Índice de Vulnerabilidad Informativa (IVI)** para las 13 provincias de Puno
 2. **Identifica zonas prioritarias** para intervenciones de alfabetización digital en salud
 3. **Analiza una cohorte real de 75 gestantes** con 17 variables demográficas y de salud
 4. **Correlaciona conectividad con indicadores de salud materna** para orientar políticas públicas
@@ -44,7 +44,7 @@ Esta combinación crea un círculo vicioso: **sin acceso a información verifica
 ## ✨ Características del Dashboard
 
 ### 🗺️ Mapa Geoespacial Interactivo
-- Visualización de las 12 provincias de Puno con niveles de vulnerabilidad
+- Visualización de las 13 provincias de Puno con niveles de vulnerabilidad
 - Filtros dinámicos por nivel de riesgo (Alto, Medio, Bajo)
 - Marcadores con información detallada de cada provincia
 
